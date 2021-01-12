@@ -1,0 +1,92 @@
+{% extends "main.html" %}
+{% load static %}
+{% block content %}
+
+    <!-- Start All Title Box -->
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Gallery</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Gallery</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+
+    <!-- Start Gallery  -->
+    <div class="products-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="title-all text-center">
+                        <h1>Our Gallery</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet lacus enim.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="special-menu text-center">
+                        <div class="button-group filter-button-group">
+                            <button class="active" data-filter="*">All</button>
+                            <button data-filter=".bulbs">Bulbs</button>
+                            <button data-filter=".fruits">Fruits</button>
+							<button data-filter=".podded-vegetables">Podded vegetables</button>
+							<button data-filter=".root-and-tuberous">Root and tuberous</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row special-list">
+                {% for product in images %}
+
+
+                <div class="col-lg-3 col-md-6 special-grid {% if product.product.type.name|stringformat:"s" == "Bulbs"%}
+                    bulbs
+                    {% elif product.product.type.name|stringformat:"s" == "Fruits" %}
+                    fruits
+                    {% elif product.product.type.name|stringformat:"s" == "Podded vegetables" %}
+                    podded-vegetables
+                    {% elif product.product.type.name|stringformat:"s" == "Root and tuberous"%}
+                    root-and-tuberous
+                    {% endif %} ">
+                        <div class="products-single fix">
+                            <div class="box-img-hover">
+                                {% if product.product.status|stringformat:"s" == 'SALE' %}
+                                <div class="type-lb">
+                                    <p class="sale">Sale</p>
+                                </div>
+                                {% elif product.product.status|stringformat:"s" == "NEW" %}
+                                    <div class="type-lb">
+                                        <p class="new">New</p>
+                                    </div>
+                                {% endif %}
+                                <img src="/{{ product.image }}" class="img-fluid" alt="Image">
+                                <div class="mask-icon">
+                                    <ul>
+                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
+                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                    </ul>
+                                    <a class="cart" href="#">Add to Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </div>
+    <!-- End Gallery  -->
+
+   {% endblock %}
